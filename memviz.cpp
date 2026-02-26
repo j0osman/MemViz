@@ -18,7 +18,7 @@ void analyze_mem(std::string name){
 
 	std::println("DATA TYPE: {}", name);
 	std::println(" Address A: 0x{}", addr1);
-	std::println(" Address B: 0x{}", addr1);
+	std::println(" Address B: 0x{}", addr2);
 	std::println(" Logical Size: {}", logical_size);
 	std::println(" Physical Size: {}", physical_size);
 	std::println(" Waste: {}", waste);
