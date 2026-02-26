@@ -17,8 +17,8 @@ void analyze_mem(std::string name){
 	double efficiency = (double)logical_size/physical_size;
 
 	std::println("DATA TYPE: {}", name);
-	std::println(" Address A: {:p}", (void*)p1);
-	std::println(" Address B: {:p}", (void*)p2);
+	std::println(" Address A: 0x{}", addr1);
+	std::println(" Address B: 0x{}", addr1);
 	std::println(" Logical Size: {}", logical_size);
 	std::println(" Physical Size: {}", physical_size);
 	std::println(" Waste: {}", waste);
