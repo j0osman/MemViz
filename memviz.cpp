@@ -1,31 +1,36 @@
 #include <iostream>
 #include <print>
 #include <cstdint>
+#include <vector>
 #include <string>
 
 template <typename T>
 void analyze_mem(std::string name){
-	T* p1 = new T();
-	T* p2 = new T();
 
-	uintptr_t addr1 = reinterpret_cast<uintptr_t>(p1);
-	uintptr_t addr2 = reinterpret_cast<uintptr_t>(p2);
+	const int N = 100000;
+	std::vector<uintptr_t> addrs;
 
-	size_t physical_size = (addr1>addr2) ? (addr1-addr2) : (addr2-addr1);
+	for(int i=0; i<N; i++){
+		T* p = new T();
+		addrs.push_back(reinterpret_cast<uintptr_t>(p));
+	}
+
+	std::sort(addrs.begin(), addrs.end());
+
+	size_t gap = addrs.back()-addrs[0];
+
+	double physical_size = (double)gap/N;
 	size_t logical_size = sizeof(T);
-	size_t waste = physical_size - logical_size;
+	size_t overhead = (size_t)physical_size - logical_size;
 	double efficiency = (double)logical_size/physical_size;
 
 	std::println("DATA TYPE: {}", name);
-	std::println(" Address A: 0x{}", addr1);
-	std::println(" Address B: 0x{}", addr2);
 	std::println(" Logical Size: {}", logical_size);
 	std::println(" Physical Size: {}", physical_size);
-	std::println(" Waste: {}", waste);
+	std::println(" Overhead: {}", overhead);
 	std::println(" Efficiency: {:.2f}%", efficiency*100.0);
 
-	delete p1;
-	delete p2;
+	for(auto it: addrs) delete reinterpret_cast<T*>(it);
 
 	std::println("---------------------------------------------------\n");
 
