@@ -39,6 +39,7 @@ void analyze_mem(std::string name){
 
 int main(){
 
+	std::println("---------------------New/Delete-------------------------\n");
 	analyze_mem<int>("Integer");
 	analyze_mem<long long>("Long Integer");
 	analyze_mem<double>("Double");
